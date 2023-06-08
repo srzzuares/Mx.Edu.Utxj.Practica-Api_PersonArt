@@ -3,7 +3,7 @@ const ObM = require('../models/obrasModel')
 
 OCLL.obtenerObra = async (req, res) => {
     const getObras = await ObM.find()
-    res.status(200).json(getObras)
+    res.json(getObras)
 }
 OCLL.obtenerOneObra = async (req, res) => {
     //console.log(req.params.idOb)
