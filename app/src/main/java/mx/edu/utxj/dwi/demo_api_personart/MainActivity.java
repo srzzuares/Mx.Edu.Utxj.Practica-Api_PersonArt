@@ -35,8 +35,8 @@ public class MainActivity extends AppCompatActivity {
     private JsonArrayRequest jsonArrayRequest;
     private ArrayList<String> originData = new ArrayList<String>();
     private ArrayAdapter<String> adapter;
-    private String url = "http://10.10.62.14:3030/";
-    private String url1 = "http://10.10.62.14:3030/crear";
+    private String host = "192.168.1.81";//10.10.62.17
+    private String url = "http://"+host+":3030/";
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 JsonObjectRequest salvar = new JsonObjectRequest(
                         Request.Method.POST,
-                        url1,
+                        url+"crear",
                         guardaArte,
                         new Response.Listener<JSONObject>() {
                             @Override
