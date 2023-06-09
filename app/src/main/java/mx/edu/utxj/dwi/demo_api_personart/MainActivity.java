@@ -82,15 +82,17 @@ public class MainActivity extends AppCompatActivity {
                                         telefonoAutor.setText(response.getString("telefonoAutor"));
                                         correoAutor.setText(response.getString("correoAutor"));
                                     } catch (JSONException error) {
-                                        Toast.makeText(MainActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                                        Toast.makeText(MainActivity.this, "Obra encontrada con un fallo de internet", Toast.LENGTH_LONG).show();
                                     }
                                 }
+
                             }
                         },
                         new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
-                                Toast.makeText(MainActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                                Toast.makeText(MainActivity.this, "Obra no encontrada.", Toast.LENGTH_LONG).show();
+                                ListarProductos();
                             }
                         }
                 );
@@ -138,14 +140,14 @@ public class MainActivity extends AppCompatActivity {
                                     correoAutor.setText("");
                                     ListarProductos();
                                 } catch (JSONException e){
-                                    Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(MainActivity.this,"Error al Guardar", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         },
                         new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
-                                Toast.makeText(MainActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                                Toast.makeText(MainActivity.this, "Error en el servidor", Toast.LENGTH_LONG).show();
                             }
                         }
                 );
@@ -192,7 +194,7 @@ public class MainActivity extends AppCompatActivity {
                                     correoAutor.setText("");
 
                                 } catch (JSONException e) {
-                                    Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(MainActivity.this, "Error al actualizar", Toast.LENGTH_SHORT).show();
                                 }
                                 ListarProductos();
                             }
@@ -219,25 +221,22 @@ public class MainActivity extends AppCompatActivity {
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
-                                try {
-                                    if (response.getString("status").equals("Obra Eliminada")) {
-                                        Toast.makeText(MainActivity.this, "Arte eliminado", Toast.LENGTH_SHORT).show();
-
-                                    } else {
-                                        Toast.makeText(MainActivity.this, "Error al eliminar", Toast.LENGTH_SHORT).show();
-
-                                    }
-                                } catch (JSONException e) {
-                                    Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                if (response.has("status")) {
+                                    Toast.makeText(MainActivity.this, "Error al eliminar", Toast.LENGTH_SHORT).show();
+                                    ListarProductos();
+                                } else {
+                                    Toast.makeText(MainActivity.this, "Obra Eliminada", Toast.LENGTH_SHORT).show();
+                                    ListarProductos();
                                 }
                                 idObra.setText("");
-                                ListarProductos();
+
                             }
                         },
                         new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
-                                Toast.makeText(MainActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                                Toast.makeText(MainActivity.this, "Error al eliminar, A lo mejor no existe la id.", Toast.LENGTH_LONG).show();
+                                ListarProductos();
                             }
                         }
                 );
