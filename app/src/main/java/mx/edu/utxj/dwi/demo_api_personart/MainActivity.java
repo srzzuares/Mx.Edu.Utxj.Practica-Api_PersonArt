@@ -81,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
                                         nombreAutor.setText(response.getString("nombreAutor"));
                                         telefonoAutor.setText(response.getString("telefonoAutor"));
                                         correoAutor.setText(response.getString("correoAutor"));
+                                        ListarProductos();
                                     } catch (JSONException error) {
                                         Toast.makeText(MainActivity.this, "Obra encontrada con un fallo de internet", Toast.LENGTH_LONG).show();
                                     }
@@ -92,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onErrorResponse(VolleyError error) {
                                 Toast.makeText(MainActivity.this, "Obra no encontrada.", Toast.LENGTH_LONG).show();
-                                ListarProductos();
+
                             }
                         }
                 );
@@ -223,20 +224,17 @@ public class MainActivity extends AppCompatActivity {
                             public void onResponse(JSONObject response) {
                                 if (response.has("status")) {
                                     Toast.makeText(MainActivity.this, "Error al eliminar", Toast.LENGTH_SHORT).show();
-                                    ListarProductos();
                                 } else {
                                     Toast.makeText(MainActivity.this, "Obra Eliminada", Toast.LENGTH_SHORT).show();
-                                    ListarProductos();
                                 }
                                 idObra.setText("");
-
+                                ListarProductos();
                             }
                         },
                         new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
                                 Toast.makeText(MainActivity.this, "Error al eliminar, A lo mejor no existe la id.", Toast.LENGTH_LONG).show();
-                                ListarProductos();
                             }
                         }
                 );
